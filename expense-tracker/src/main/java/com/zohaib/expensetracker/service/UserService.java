@@ -2,37 +2,32 @@ package com.zohaib.expensetracker.service;
 
 import com.zohaib.expensetracker.model.User;
 import com.zohaib.expensetracker.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    // Get all users
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    // Get a user by ID
-    public User getUserById(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-    }
-
-    // Create a new user
+    // Create a new user (with encoded password)
     public User createUser(User user) {
+         if (userRepository.findByUsername(user.getUsername()).isPresent()) {
+            throw new IllegalArgumentException("Username already taken");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
-    // Delete a user by ID
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+    public boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
+
 }

@@ -10,6 +10,7 @@ import org.springframework.security.authentication.AuthenticationServiceExceptio
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -30,20 +31,23 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
+        System.out.println("[AuthController] Login attempt for user: " + request.getUsername());
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
             );
 
             User user = userRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new AuthenticationServiceException("User not found after login"));
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             String token = jwtUtil.generateToken(user);
             return ResponseEntity.ok(Collections.singletonMap("token", token));
+
         } catch (AuthenticationException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid username or password");
         }
     }
+
 
     // DTO for request body
     static class AuthRequest {

@@ -15,7 +15,7 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String secret;
 
-    private static final long EXPIRATION_TIME = 86400000; // 1 day in ms
+    private static final long EXPIRATION_TIME = 86400000;
 
     public String generateToken(User user) {
         return JWT.create()
@@ -30,5 +30,13 @@ public class JwtUtil {
         return JWT.require(Algorithm.HMAC256(secret))
             .build()
             .verify(token);
+    }
+
+    public String extractUsername(String token) {
+        return validateToken(token).getClaim("username").asString();
+    }
+
+    public Long extractUserId(String token) {
+        return Long.parseLong(validateToken(token).getSubject());
     }
 }

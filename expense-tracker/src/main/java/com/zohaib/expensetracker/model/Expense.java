@@ -3,6 +3,7 @@ package com.zohaib.expensetracker.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Expense {
@@ -17,12 +18,10 @@ public class Expense {
     private Category category;
 
     @ManyToOne
-    @JoinColumn(
-        name = "trip_id",
-        foreignKey = @ForeignKey(name = "fk_expense_trip")
-    )
-    @JsonIgnore
+    @JoinColumn(name = "trip_id", foreignKey = @ForeignKey(name = "fk_expense_trip"))
+    @JsonIgnoreProperties("expenses") // Ignore the "expenses" field in Trip when serializing
     private Trip trip;
+
 
     public Expense() {}
 
