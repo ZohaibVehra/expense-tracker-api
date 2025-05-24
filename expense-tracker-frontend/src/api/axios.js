@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
   },
 });
 
-// Automatically attach JWT from localStorage if available
+// 🔐 Request Interceptor: attach JWT from localStorage
 axiosInstance.interceptors.request.use((config) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -17,5 +17,17 @@ axiosInstance.interceptors.request.use((config) => {
   }
   return config;
 });
+
+//if token expires and backend returns a 401 we redirect to login
+axiosInstance.interceptors.response.use(
+  res => res,
+  err => {
+    if (err.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(err);
+  }
+);
 
 export default axiosInstance;

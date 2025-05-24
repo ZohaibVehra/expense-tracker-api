@@ -29,7 +29,7 @@ public class TripController {
     // Get all trips for user (from Jwt)
     @GetMapping("/user/trips")
     public List<Trip> getTripsByUser(@RequestHeader("Authorization") String authHeader) {
-        
+        System.out.println("get all trips req made");
         String token = authHeader.replace("Bearer ", "");
         Long id = jwtUtil.extractUserId(token);
         return tripService.getTripsByUserId(id);
@@ -59,6 +59,7 @@ public class TripController {
             @RequestBody Trip trip,
             @RequestHeader("Authorization") String authHeader) {
 
+         System.out.println("post trip req made");
         // Extract JWT token
         String token = authHeader.replace("Bearer ", "");
 

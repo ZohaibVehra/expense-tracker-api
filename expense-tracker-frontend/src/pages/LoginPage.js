@@ -1,6 +1,8 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useEffect } from "react";
+import { Eye } from 'lucide-react';
 
 function LoginPage() {
   const [username, setUsername] = useState("");
@@ -38,6 +40,13 @@ function LoginPage() {
     }
   };
 
+    useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+        navigate("/dashboard");
+    }
+    }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center">
       <div className="bg-white p-10 rounded shadow-md w-full max-w-md space-y-6">
@@ -66,22 +75,23 @@ function LoginPage() {
 
         {/* Password Input + Eye */}
         <div className="relative mt-4">
-          <input
+        <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={handleKeyDown}
-          />
-          <button
+        />
+        <button
             type="button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}
-          >
-            {showPassword ? "🙈" : "👁️"}
-          </button>
+        >
+            <Eye className="w-5 h-5" />
+        </button>
         </div>
+
 
         {/* Buttons */}
         <div className="flex flex-col space-y-2">
