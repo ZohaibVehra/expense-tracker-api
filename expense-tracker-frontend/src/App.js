@@ -4,6 +4,8 @@ import RegisterPage from './pages/RegisterPage';
 import DashboardPage from './pages/DashboardPage';
 import CreateTripPage from "./pages/CreateTripPage";
 import TripPage from "./pages/TripPage";
+import SpendingReportPage from "./pages/SpendingReportPage";
+import DemoLoginPage from "./pages/DemoLoginPage";
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
         <Route path="/dashboard" element={<DashboardPage />} />
         <Route path="/create" element={<CreateTripPage />} />
         <Route path="/trip/:id" element={<TripPage />} />
+        <Route path="/trip/:id/report" element={<SpendingReportPage />} />
+        <Route path="/demo-login" element={<DemoLoginPage />} />
       </Routes>
     </BrowserRouter>
   );

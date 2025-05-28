@@ -8,6 +8,11 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
   const navigate = useNavigate();
   const onDashboard = location.pathname === "/dashboard";
 
+  const isTripPage = /^\/trip\/\d+$/.test(location.pathname);
+  const isReportPage = /^\/trip\/\d+\/report$/.test(location.pathname);
+
+  const tripId = location.pathname.split("/")[2]; // Works for both /trip/:id and /trip/:id/report
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
@@ -21,7 +26,6 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
     <>
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex flex-col justify-between w-64 h-screen sticky top-0 bg-[#16172A] text-white p-6 relative overflow-hidden">
-        {/* Gradient Background */}
         <div
           className="absolute inset-0 z-0"
           style={{
@@ -33,12 +37,10 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
 
         <div className="relative z-10 flex flex-col justify-between h-full">
           <div>
-            {/* Logo */}
             <div className="mt-4 mb-6 text-center">
               <img src={logo} alt="Logo" className="mx-auto h-[4.5rem]" />
             </div>
 
-            {/* Dashboard Button */}
             <div className="text-center mb-6">
               <img
                 src={dashboardButton}
@@ -50,34 +52,52 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
               />
             </div>
 
-            {/* Navigation */}
             {onDashboard && (
-                <nav className="space-y-4 mt-6 text-base font-semibold">
-                    <a
-                    onClick={onAllTripsClick}
-                    className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
-                    >
-                    Show All Trips
-                    </a>
-                    <a
-                    onClick={onFavoritesClick}
-                    className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
-                    >
-                    Show Favorite Trips
-                    </a>
-                    <a
-                    onClick={onFutureTripsClick}
-                    className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
-                    >
-                    Future Trips
-                    </a>
-                </nav>
+              <nav className="space-y-4 mt-6 text-base font-semibold">
+                <a
+                  onClick={onAllTripsClick}
+                  className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
+                >
+                  Show All Trips
+                </a>
+                <a
+                  onClick={onFavoritesClick}
+                  className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
+                >
+                  Show Favorite Trips
+                </a>
+                <a
+                  onClick={onFutureTripsClick}
+                  className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
+                >
+                  Future Trips
+                </a>
+              </nav>
             )}
 
+            {isTripPage && (
+              <div className="mt-6 text-base font-semibold">
+                <a
+                  onClick={() => navigate(`/trip/${tripId}/report`)}
+                  className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
+                >
+                  View Spending Report
+                </a>
+              </div>
+            )}
 
+            {isReportPage && (
+              <div className="mt-6 text-base font-semibold">
+                <a
+                  onClick={() => navigate(`/trip/${tripId}`)}
+                  className="block px-4 py-2 rounded-md text-white hover:bg-[#2a2b45] hover:text-[#D5F942] cursor-pointer transition"
+                >
+                  Return to Trip
+                </a>
+              </div>
+            )}
           </div>
 
-          {/* Logout */}
           <div>
             <button
               onClick={handleLogout}
@@ -92,18 +112,15 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
         </div>
       </aside>
 
-      {/* Mobile topbar */}
+      {/* Mobile Topbar */}
       <div
-        className={`fixed top-0 left-0 right-0 z-50 bg-[#16172A] text-white p-4 shadow-md md:hidden transition-transform duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 bg-[#16172A] text-white shadow-md md:hidden transition-transform duration-300 ${
           showTopBar ? "translate-y-0" : "-translate-y-full"
         }`}
       >
-        <div className="flex items-center justify-between">
+        <div className="p-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            {/* Logo */}
             <img src={logo} alt="Logo" className="h-10" />
-
-            {/* Dashboard Button (next to logo) */}
             <img
               src={dashboardMobile}
               alt="Dashboard"
@@ -114,7 +131,6 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
             />
           </div>
 
-          {/* Logout */}
           <button
             onClick={handleLogout}
             className="flex items-center text-sm text-gray-400 hover:text-[#D5F942]"
@@ -131,6 +147,27 @@ function Sidebar({ showTopBar, onFavoritesClick, onAllTripsClick, onFutureTripsC
             </svg>
           </button>
         </div>
+
+        {(isTripPage || isReportPage) && (
+          <div className="px-4 pb-3 text-center space-y-2">
+            {isTripPage && (
+              <button
+                onClick={() => navigate(`/trip/${tripId}/report`)}
+                className="w-full bg-[#2a2b45] text-white px-4 py-2 rounded hover:text-[#D5F942] transition text-sm font-semibold"
+              >
+                View Spending Report
+              </button>
+            )}
+            {isReportPage && (
+              <button
+                onClick={() => navigate(`/trip/${tripId}`)}
+                className="w-full bg-[#2a2b45] text-white px-4 py-2 rounded hover:text-[#D5F942] transition text-sm font-semibold"
+              >
+                Return to Trip
+              </button>
+            )}
+          </div>
+        )}
       </div>
     </>
   );

@@ -154,4 +154,29 @@ public class TripController {
         return ResponseEntity.ok(savedTrip);
     }
 
+    @PutMapping("/{id}/cover")
+    public ResponseEntity<?> updateTripCover(
+            @PathVariable Long id,
+            @RequestBody int coverImage,
+            @RequestHeader("Authorization") String authHeader) {
+
+        String token = authHeader.replace("Bearer ", "");
+        Long userId = jwtUtil.extractUserId(token);
+
+        Trip trip = tripService.getTripById(id);
+        if (!trip.getUser().getId().equals(userId)) {
+            return ResponseEntity.status(403).body("Access denied: You do not own this trip.");
+        }
+
+        // Validate cover image range
+        if (coverImage < 1 || coverImage > 12) {
+            return ResponseEntity.badRequest().body("Invalid cover image ID.");
+        }
+
+        trip.setCover(coverImage);
+        Trip updatedTrip = tripService.createTrip(trip); // saves it
+
+        return ResponseEntity.ok(updatedTrip);
+    }
+
 }
