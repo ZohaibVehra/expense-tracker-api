@@ -16,6 +16,8 @@ public class Trip {
 
     private LocalDate startDate;
     private LocalDate endDate;
+    private boolean favorite = false;
+    private int coverImage; 
 
     @ManyToOne
     @JoinColumn(
@@ -46,4 +48,11 @@ public class Trip {
 
     public List<Expense> getExpenses() { return expenses; }
     public void setExpenses(List<Expense> expenses) { this.expenses = expenses; }
+
+    public boolean isFavorite() { return favorite; }
+    public void setFavorite(boolean favorite) { this.favorite = favorite; }
+
+    public int getCoverImage() { return coverImage; }
+    public void setCover(int coverImage) { this.coverImage = coverImage; }
+
 }

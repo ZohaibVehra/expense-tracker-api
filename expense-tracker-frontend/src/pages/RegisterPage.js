@@ -1,8 +1,8 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Eye } from 'lucide-react';
-import { useEffect } from "react";
+import { Eye } from "lucide-react";
+import logo from "../images/logo.png";
 
 function RegisterPage() {
   const [username, setUsername] = useState("");
@@ -29,10 +29,8 @@ function RegisterPage() {
   };
 
   const handleRegister = async () => {
-    // Clear old message
     setMessage("");
 
-    // Validation
     if (!username || !password || !confirmPassword) {
       setMessage("Please fill all fields.");
       return;
@@ -62,12 +60,12 @@ function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-10 rounded shadow-md w-full max-w-md space-y-6">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-[#16172A] p-10 rounded-xl shadow-md w-full max-w-md space-y-6 text-white border border-[#2b2c3d]">
         {/* Logo */}
-          <div className="text-center">
-          <img src="/logo.png" alt="Logo" className="mx-auto h-16 mb-4" />
-        <h1 className="text-2xl font-bold">Register</h1>
+        <div className="text-center">
+          <img src={logo} alt="Logo" className="mx-auto h-24 mb-4" />
+          <h1 className="text-2xl font-bold text-white">Register</h1>
         </div>
 
         {/* Message */}
@@ -87,7 +85,7 @@ function RegisterPage() {
         <input
           type="text"
           placeholder="Username"
-          className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 border border-[#2f3146] rounded bg-[#1b1c2e] text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#7df9ff]"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           onKeyDown={handleKeyDown}
@@ -95,55 +93,54 @@ function RegisterPage() {
 
         {/* Password */}
         <div className="relative">
-        <input
+          <input
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-[#2f3146] rounded bg-[#1b1c2e] text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#7df9ff]"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             onKeyDown={handleKeyDown}
-        />
-        <button
+          />
+          <button
             type="button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowPassword(!showPassword)}
-        >
+          >
             <Eye className="w-5 h-5" />
-        </button>
+          </button>
         </div>
 
         {/* Confirm Password */}
         <div className="relative mt-4">
-        <input
+          <input
             type={showConfirmPassword ? "text" : "password"}
             placeholder="Retype Password"
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-4 py-2 border border-[#2f3146] rounded bg-[#1b1c2e] text-gray-300 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#7df9ff]"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             onKeyDown={handleKeyDown}
-        />
-        <button
+          />
+          <button
             type="button"
             className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-        >
+          >
             <Eye className="w-5 h-5" />
-        </button>
+          </button>
         </div>
-
 
         {/* Buttons */}
         <div className="flex flex-col space-y-2">
           <button
             ref={registerButtonRef}
             onClick={handleRegister}
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+            className="bg-[#D5F942] text-black font-semibold py-2 rounded hover:bg-[#cbe93a] transition-all"
           >
             Register
           </button>
           <button
             onClick={() => navigate("/login")}
-            className="bg-gray-300 text-gray-800 py-2 rounded hover:bg-gray-400"
+            className="bg-[#1c1e3b] text-white font-semibold py-2 rounded hover:bg-[#1c1e3b] transition-all"
           >
             Return to Login
           </button>

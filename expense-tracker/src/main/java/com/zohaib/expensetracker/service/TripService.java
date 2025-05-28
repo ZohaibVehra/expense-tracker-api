@@ -4,7 +4,9 @@ import com.zohaib.expensetracker.model.Trip;
 import com.zohaib.expensetracker.repository.TripRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.time.LocalDate;
 
 @Service
 public class TripService {
@@ -23,6 +25,11 @@ public class TripService {
     }
 
     public Trip createTrip(Trip trip) {
+        if (trip.getId() == null) {
+            // This is a new trip
+            int randomCover = (int) (Math.random() * 12) + 1;
+            trip.setCover(randomCover);
+        }
         return tripRepository.save(trip);
     }
 
@@ -32,5 +39,17 @@ public class TripService {
 
     public List<Trip> getTripsByUserId(Long userId) {
         return tripRepository.findByUserId(userId);
+    }
+    
+    public List<Trip> searchTripsByUserIdAndName(Long userId, String name) {
+        return tripRepository.findByUserIdAndNameContainingIgnoreCase(userId, name);
+    }
+
+    public List<Trip> getFavoriteTripsByUserId(Long userId) {
+        return tripRepository.findByUserIdAndFavoriteTrue(userId);
+    }
+    
+    public List<Trip> getFutureTripsByUserId(Long userId) {
+        return tripRepository.findByUserIdAndStartDateAfter(userId, LocalDate.now());
     }
 }
