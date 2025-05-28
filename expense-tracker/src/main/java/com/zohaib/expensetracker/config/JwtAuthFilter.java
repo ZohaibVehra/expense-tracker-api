@@ -16,9 +16,9 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import java.util.List;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthFilter extends OncePerRequestFilter {
@@ -35,10 +35,12 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
         System.out.println("[JwtAuthFilter] Checking path: " + path);
-        return path.equals("/auth/login") || path.equals("/api/users");
+        return path.equals("/auth/login")
+            || path.equals("/api/users")
+            || path.startsWith("/api/demo");
     }
 
-   @Override
+    @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain)
@@ -81,5 +83,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         source.registerCorsConfiguration("/**", config);
         return source;
     }
-
 }

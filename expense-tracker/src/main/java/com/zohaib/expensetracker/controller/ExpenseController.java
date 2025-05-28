@@ -62,17 +62,21 @@ public class ExpenseController {
         String token = authHeader.replace("Bearer ", "");
         long userId = jwtUtil.extractUserId(token);
 
-        //leaving below in for learning
-        // below would fail since we dont pass entire trip object in, just trip id
-            // so we cant call getUser
-        /*Long tripOwnerId = expense.getTrip().getUser().getId();
+        Long tripId = expense.getTrip() != null ? expense.getTrip().getId() : null;
+        System.out.println("[DEBUG] Trip ID from payload: " + tripId);
+        System.out.println("[DEBUG] Requesting user ID from token: " + userId);
 
-        if (userId != tripOwnerId) {
-            return ResponseEntity.status(403).body("Access denied: You do not own this trip.");
-        }*/ 
+        if (tripId == null) {
+            return ResponseEntity.badRequest().body("Trip ID is missing in request.");
+        }
 
-        Long tripId = expense.getTrip().getId();
         Trip trip = tripService.getTripById(tripId);
+        if (trip == null) {
+            return ResponseEntity.status(404).body("Trip not found.");
+        }
+
+        System.out.println("[DEBUG] Trip owner ID from DB: " + trip.getUser().getId());
+
         if (!trip.getUser().getId().equals(userId)) {
             return ResponseEntity.status(403).body("Access denied: You do not own this trip.");
         }
@@ -82,6 +86,7 @@ public class ExpenseController {
         Expense savedExpense = expenseService.createExpense(expense);
         return ResponseEntity.ok(savedExpense);
     }
+
 
     // Delete an expense by ID
     @DeleteMapping("/{id}")

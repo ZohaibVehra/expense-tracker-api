@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #101120;
+}
+
+@font-face {
+  font-family: 'Eras Demi ITC';
+  src: url('./fonts/eras-demi-itc-regular.ttf') format('truetype');
+}
+
+.font-eras {
+  font-family: 'Eras Demi ITC', sans-serif;
+}
