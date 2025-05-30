@@ -13,6 +13,10 @@ An app to help you plan, track, and manage your travel expenses with a clean UI 
 - Secure backend API with Spring Boot and MySQL
 
 ---
+## Demo Video
+
+[![Watch Demo](/screenshots/dashboard.png)](https://youtu.be/ITZKwaU93xA)
+---
 
 ## Screenshots
 
@@ -25,12 +29,8 @@ An app to help you plan, track, and manage your travel expenses with a clean UI 
 ### Trip Details
 ![Trip Details Screenshot](./screenshots/trip-details.png)
 
----
-
-## Demo Video
-
-[![Watch Demo](https://img.youtube.com/vi/your_video_id/maxresdefault.jpg)](https://youtu.be/your_video_id)
-
+### Spending Report
+![Spending Report Screenshot](./screenshots/report.png)
 ---
 
 
@@ -40,17 +40,14 @@ In order to run please create a file in expense-tracker-api\expense-tracker\src\
 and add to it the following with your local mysql information filled in.
 Note as this is local and the authentication not necessary I have opted to just put in the jwt secret and sensitive mysql information here but you can abstract it to env variables if need be
 
-
 spring.datasource.url=jdbc:mysql:Your_mysql_db_here
 spring.datasource.username=Your_mysql_username
 spring.datasource.password=Your_mysql_password
 spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-# JPA & Hibernate
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
 server.port=8080
 
-# JWT Secret
 jwt.secret=your_generated_secret_here
