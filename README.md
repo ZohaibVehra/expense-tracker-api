@@ -13,7 +13,7 @@ An app to help you plan, track, and manage your travel expenses with a clean UI 
 - Secure backend API with Spring Boot and MySQL
 
 ---
-## Demo Video
+## Demo Video - routes to youtube
 
 [![Watch Demo](/screenshots/dashboard.png)](https://youtu.be/ITZKwaU93xA)
 ---
