@@ -1,0 +1,18 @@
+branch-defaults:
+  default:
+    environment: expense-tracker-env
+    group_suffix: null
+global:
+  application_name: expense-tracker
+  branch: null
+  default_ec2_keyname: null
+  default_platform: Docker running on 64bit Amazon Linux 2023
+  default_region: ca-central-1
+  include_git_submodules: true
+  instance_profile: null
+  platform_name: null
+  platform_version: null
+  profile: eb-cli
+  repository: null
+  sc: null
+  workspace_type: Application
