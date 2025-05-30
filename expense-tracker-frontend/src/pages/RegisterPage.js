@@ -42,7 +42,7 @@ function RegisterPage() {
     }
 
     try {
-      await axios.post("http://expensetrackerthree-env.eba-tskcsumx.ca-central-1.elasticbeanstalk.com/api/users", {
+      await axios.post("http://expensetrackerfinal-env.eba-gmy2c8ig.ca-central-1.elasticbeanstalk.com/api/users", {
         username,
         password,
       });
