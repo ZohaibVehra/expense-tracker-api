@@ -74,7 +74,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:3000")); // React dev server
+        config.setAllowedOrigins(List.of(
+            "http://localhost:3000",                          // for local dev
+            "http://expense-tracker-env.eba-xxxx.elasticbeanstalk.com"  // for deployed frontend access
+        ));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true); // if you're using cookies

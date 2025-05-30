@@ -8,9 +8,9 @@ function DemoLoginPage() {
   useEffect(() => {
     const loginAsDemo = async () => {
       try {
-        const response = await axios.post("http://localhost:8080/auth/login", {
-          username: "DemoUsername",
-          password: "DemoPass",
+        const response = await axios.post("http://expensetrackerfinal-env.eba-gmy2c8ig.ca-central-1.elasticbeanstalk.com/auth/login", {
+          username: "Demo_Username",
+          password: "Demo_Password",
         });
 
         const token = response.data.token;

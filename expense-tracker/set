@@ -1,0 +1,8 @@
+      PID    PPID    PGID     WINPID   TTY         UID    STIME COMMAND
+      210       1     210      23048  ?         197609 16:50:13 /usr/bin/mintty
+      286       1     286      20100  cons0     197609 16:57:53 /usr/bin/ps
+      282     275     275      24276  pty1      197609 16:53:02 /c/Program Files/nodejs/node
+      275     253     275       2036  pty1      197609 16:53:02 /usr/bin/bash
+      211     210     211      11828  pty0      197609 16:50:13 /usr/bin/bash
+      252       1     252      12020  ?         197609 16:52:48 /usr/bin/mintty
+      253     252     253      18316  pty1      197609 16:52:49 /usr/bin/bash
