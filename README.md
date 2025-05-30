@@ -1,6 +1,6 @@
 # Expense Tracker App
 
-A simple and intuitive app to help you plan, track, and manage your travel expenses effortlessly.
+An app to help you plan, track, and manage your travel expenses with a clean UI and simple user flow.
 
 ---
 
@@ -19,6 +19,9 @@ A simple and intuitive app to help you plan, track, and manage your travel expen
 ### Dashboard
 ![Dashboard Screenshot](./screenshots/dashboard.png)
 
+### Mobile Dashboard
+![Dashboard Screenshot](./screenshots/dashboardM.png)
+
 ### Trip Details
 ![Trip Details Screenshot](./screenshots/trip-details.png)
 
@@ -30,15 +33,24 @@ A simple and intuitive app to help you plan, track, and manage your travel expen
 
 ---
 
-## Getting Started
 
-### Prerequisites
-- Java 17+
-- MySQL database
-- Node.js and npm
+### Note
 
-### Installation
+In order to run please create a file in expense-tracker-api\expense-tracker\src\main\resources titled application properties
+and add to it the following with your local mysql information filled in.
+Note as this is local and the authentication not necessary I have opted to just put in the jwt secret and sensitive mysql information here but you can abstract it to env variables if need be
 
-1. Clone the repo:
-```bash
-git clone https://github.com/yourusername/expense-tracker.git
+
+spring.datasource.url=jdbc:mysql:Your_mysql_db_here
+spring.datasource.username=Your_mysql_username
+spring.datasource.password=Your_mysql_password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA & Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+server.port=8080
+
+# JWT Secret
+jwt.secret=your_generated_secret_here
