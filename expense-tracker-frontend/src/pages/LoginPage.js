@@ -21,7 +21,7 @@ function LoginPage() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8080/auth/login', {
+      const response = await axios.post('http://expensetrackerthree-env.eba-tskcsumx.ca-central-1.elasticbeanstalk.com/auth/login', {
         username,
         password,
       });

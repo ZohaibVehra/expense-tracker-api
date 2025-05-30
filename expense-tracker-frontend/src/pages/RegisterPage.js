@@ -42,7 +42,7 @@ function RegisterPage() {
     }
 
     try {
-      await axios.post("http://localhost:8080/api/users", {
+      await axios.post("http://expensetrackerthree-env.eba-tskcsumx.ca-central-1.elasticbeanstalk.com/api/users", {
         username,
         password,
       });
